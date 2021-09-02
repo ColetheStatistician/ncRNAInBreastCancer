@@ -1,4 +1,4 @@
-# Workflow
+# 0.Workflow
 ![Workflow](0.workflow.png)
 
 # 1. Data Processing
@@ -61,3 +61,8 @@
 |----------------|-------|
 | Single ncRNA   | 4,949 |
 | Multiple ncRNA | 140   |
+
+# 5. Misc.
+Links to flowcharts:
+[Flowcharts 1-3](https://lucid.app/lucidchart/invitations/accept/inv_5488efa8-e3f8-402d-8c3f-d2cbc1482340?viewport_loc=-122%2C-173%2C2032%2C1176%2C0_0)
+[Flowcharts 4-5](https://lucid.app/lucidchart/invitations/accept/inv_d3d035fa-76e7-4595-958b-276b87a22e97?viewport_loc=-11%2C-11%2C1664%2C1005%2C0_0)

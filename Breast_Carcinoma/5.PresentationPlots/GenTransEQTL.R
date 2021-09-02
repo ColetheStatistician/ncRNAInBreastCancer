@@ -1,0 +1,36 @@
+# Load libraries and functions
+source("/u/scratch/n/nolanc/Breast_Carcinoma/MeQTL/scripts/IterateMatrixeQTLFunctions.R")
+output_filename <- "iteratePlotData.rds" # CHANGE ME
+
+## Read in formatted data
+genotype <- "/u/scratch/n/nolanc/Breast_Carcinoma/MeQTL/22.Breast_Carcinoma_genotype.csv"
+snploc <- "/u/scratch/n/nolanc/Breast_Carcinoma/MeQTL/22.Breast_Carcinoma_snploc.csv"
+geneloc <- "/u/scratch/n/nolanc/Breast_Carcinoma/MeQTL/formatted_gene_loc.csv"
+exp <- "/u/scratch/n/nolanc/Breast_Carcinoma/MeQTL/formatted_pc_expression.csv" # CHANGE ME
+### Read in data for HCPs
+covariates <- data.table::fread("/u/scratch/n/nolanc/Breast_Carcinoma/MeQTL/formattedCovariates.csv")
+Y <- data.table::fread("/u/scratch/n/nolanc/Breast_Carcinoma/MeQTL/formatted_pc_expression.csv") # CHANGE ME
+
+## Prep data
+formattedHCP <- formatHCPs(covariates = covariates, expression_matrix = Y)
+Z <- formattedHCP$Z
+Y <- formattedHCP$Y
+
+## Set variables
+GENOTYPE_file_name = genotype; EXP_file_name = exp; gene_location_file_name = geneloc; snps_location_file_name =snploc
+first_two_plus_k_pcs=2; k=8; lambda1=1; lambda2=1; lambda3=1; covariates=covariates
+toOpt = c("k")
+
+# Iterate
+eQTLs <- iterateMeQTL(first_two_plus_k_pcs=first_two_plus_k_pcs, # how many of first principal components to use ( after the first 5)
+                      k=k, lambda1=lambda1, lambda2=lambda2, lambda3=lambda3, # hcp variables to optimize
+                      Z=Z, 
+                      Y=Y,
+                      covariates=covariates, # matrix of covariates
+                      GENOTYPE_file_name=GENOTYPE_file_name, 
+                      EXP_file_name=EXP_file_name, 
+                      gene_location_file_name=gene_location_file_name, 
+                      snps_location_file_name=snps_location_file_name,
+                      toOpt = toOpt)
+  
+saveRDS(eQTLs, output_filename)
